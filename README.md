@@ -7,3 +7,6 @@ conda create --prefix ./env jupyter numpy matplotlib pandas scikit-learn
 ```sh
 conda activate "${PWD}/env"
 ``` 
+
+### Algo
+- [KNN](/knn)
