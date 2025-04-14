@@ -1,6 +1,6 @@
-# 📍K-Nearest Neighbors (KNN)
+# 📚 K-Nearest Neighbors (KNN)
 
-## ✅ What is KNN used for?
+## 🤖 What is KNN used for?
 - Classification
 - Regression
 
