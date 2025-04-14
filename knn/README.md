@@ -5,6 +5,7 @@
 - Regression
 
 <hr/>
+
 ## 📐 Formula (Simple Version)
 > KNN doesn’t have a training formula, but this is the key idea:
 
