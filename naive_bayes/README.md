@@ -1,96 +1,113 @@
-# 📚 Naive Bayes Mastery
+# 🧠 Naive Bayes
 
-## 🤖 What is Naive Bayes?
-- A classification algorithm based on Bayes’ Theorem from probability.
-- It’s "naive" because it assumes all features are independent of each other (even though that’s rarely true).
-- Still works great in real life: fast, easy, and powerful!
+### 📌 What is Naive Bayes?
 
-<hr/>
+Imagine you’re a burger detective. You’ve eaten hundreds of burgers 🍔 and can guess what kind of burger it is (Spicy, Sweet, Cheesy) just by knowing what’s in it—like sauce, toppings, etc.
 
-## 🧠 What it’s used for:
-- Classification
-- Spam detection (email filters)
-- Sentiment analysis (happy/sad text)
-- Medical diagnosis (flu or not?)
-- Predicting user preferences (like what burger you want 🍔)
+Naive Bayes helps you guess the label (like burger type) based on ingredients (features). It uses math + probabilities to make the best guess.
 
-</hr>
 
-## 🧮 The Formula
+------------
 
-**In Naive Bayes format::**
+### 📚 Used for:
 
-```mathematica
-P(Class | Features) = [P(Feature1 | Class) * P(Feature2 | Class) * ... * P(Class)]
+- 📂 Classification
+
+- 🧠 Spam detection
+
+- 🤖 Sentiment analysis
+
+- 🩺 Disease prediction
+
+- 📊 Document categorization
+
+
+------------
+
+### 🧮 Formula (in plain English)
+***Bayes’ Theorem:***
+P(Class∣Data)=P(Data∣Class) * P(Class)P(Data)/P(Data)
+*** But we ignore P(Data)P(Data) (same for all), so we use: ***
+Score(Class)=P(Class)*P(Data1|Class)×P(Data2|Class)*…
+
+------------
+
+
+### 🔑 Naive Bayes Variables Cheat Sheet
+
+| **Symbol / Term**          | **Meaning**                                                             |
+|----------------------------|--------------------------------------------------------------------------|
+| P(Class I Data)         | Probability the class is true, given the observed data (posterior)       |
+| P(Data I Class)          | Probability of the data, assuming the class is true (likelihood)         |
+| P(Class)                 | Prior probability of the class (how likely it is before seeing data)     |
+| P(Data)                  | Probability of the data itself (evidence — often ignored in comparison)  |
+
+
+------------
+
+### 🎯 Visual Intuition (Emoji style)
+
+Let’s say you see this:
+
+🍔 → [🔥, 🧀, 🌶️]
+You're trying to decide if it’s:
+
+-     Spicy 🔥
+
+-     Cheesy 🧀
+
+-     Sweet 🍯
+
+Naive Bayes counts how often each ingredient shows up for each class and uses that to guess the most likely class.
+
+
+------------
+
+### ⚙️ ASCII Logic Breakdown
+```sql
++---------------------------+
+|     Ingredient Count      |
++---------------------------+
+| Class: Spicy              |
+|  - 🔥: 30                 |
+|  - 🧀: 5                  |
++---------------------------+
+| Class: Cheesy             |
+|  - 🔥: 3                  |
+|  - 🧀: 40                 |
++---------------------------+
+
+Now we predict:
+
+Score(Spicy)  = P(Spicy) * P(🔥|Spicy) * P(🧀|Spicy)  
+Score(Cheesy) = P(Cheesy) * P(🔥|Cheesy) * P(🧀|Cheesy)
+
+→ Choose the class with the **highest score**
 ```
 
-**Breakdown of the Formula Variables:**
 
-- **P(Class | Features):**  
-  The **posterior probability** — the probability of a class (label) given the observed features (data).
-  
-- **P(Feature1 | Class):**  
-  The **likelihood** — the probability of observing Feature1 given a certain class.
-  
-- **P(Class):**  
-  The **prior probability** — the likelihood of the class before knowing any features.
-  
-- **P(Features):**  
-  The **evidence** — the total probability of all features combined.
+------------
 
-**Important note in Naive Bayes:**  
-We ignore the denominator (**P(Features)**) because it’s the same for every class. We focus on comparing the **numerators** only.
+#### ✅ Pros
 
-</hr>
+  -   Very fast, even on large data
 
-## Intuitive Example: The Burger Master
+-     Works well with high-dimensional data
 
-<p>
-Let's use a burger example to understand Naive Bayes.
-Imagine you’re at a burger joint 🍔. Customers come in with different toppings, and you need to guess which type of burger they want.
-</p>
+-     Easy to implement
 
-You have three types:
+#### ❌ Cons
 
-- Veggie Burger 🥦
-- Cheese Lover 🧀
-- Meat Lover 🥩
+-     Assumes features are independent (which is not always true)
 
-**Toppings and Class Labels**
+-     Can perform poorly if features are correlated
 
-| Tomato 🍅 | Cheese 🧀 | Bacon 🥓 | Lettuce 🥬 | Burger Type  |
-|-----------|-----------|----------|------------|--------------|
-| 1         | 1         | 0        | 1          | Veggie       |
-| 0         | 1         | 1        | 0          | Meat Lover   |
-| 1         | 1         | 0        | 1          | Cheese Lover |
-| 0         | 0         | 1        | 0          | Meat Lover   |
-| 1         | 0         | 0        | 1          | Veggie       |
-| ...       | ...       | ...      | ...        | ...          |
+### 📊 Metrics You Can Use
 
-**Features:**
+    Precision
 
-- **Tomato (🍅):** 1 = Yes, 0 = No
-- **Cheese (🧀):** 1 = Yes, 0 = No
-- **Bacon (🥓):** 1 = Yes, 0 = No
-- **Lettuce (🥬):** 1 = Yes, 0 = No
+    Recall
 
-**Goal:**
-You want to predict the **Burger Type** based on these toppings (features).
+    F1-Score
 
-### Naive Bayes in Action
-
-**Formula for Veggie Burger:**
-
-```rst
-P(Veggie | Tomato, Cheese, Bacon, Lettuce) = P(Tomato | Veggie) * P(Cheese | Veggie) * P(Bacon | Veggie) * P(Lettuce | Veggie) * P(Veggie)
-```
-
-**Formula for Meat Lover Burger:**
-```rst
-P(Meat Lover | Tomato, Cheese, Bacon, Lettuce) = P(Tomato | Meat Lover) * P(Cheese | Meat Lover) * P(Bacon | Meat Lover) * P(Lettuce | Meat Lover) * P(Meat Lover)
-```
-
-**Formula for Cheese Lover Burger:**
-```rst
-P(Cheese Lover | Tomato, Cheese, Bacon, Lettuce) = P(Tomato | Cheese Lover) * P(Cheese | Cheese Lover) * P(Bacon | Cheese Lover) * P(Lettuce | Cheese Lover) * P(Cheese Lover)
-```
+    Accuracy
